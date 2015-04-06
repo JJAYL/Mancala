@@ -28,10 +28,10 @@ public class Pit
         stones++;
     }
     
-    public void addStones(int stoness) //CHANGE THIS SHITTY NAME
+    public void addStones(int newStones) //CHANGE THIS SHITTY NAME
     {
         previousStones = stones;
-        this.stones+=stoness;
+        this.stones+=newStones;
     }
     public void reset()
     {
