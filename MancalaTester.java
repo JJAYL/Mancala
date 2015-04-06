@@ -9,15 +9,15 @@ public static void main(String[] args)
 	System.out.println("Enter number of initial stones (3 or 4) : ");
 	input = scanner.nextLine();
 	tester = new MancalaBoard(Integer.parseInt(input));
-	Pit[] test = tester.getBoard();
-	tester.printBoard(test);
-	System.out.println("\nMake your move: ");
+	tester.printBoard();
+	System.out.println("\nMake your move  A");
 	while(scanner.hasNext())
 	{
-		tester.printBoard(test);
-		char player = 'A';
-		if(!tester.getPlayer()){player = 'B';}
-		System.out.println("\nMake your move:" + player);
+		tester.printBoard();
+		char player = 'B';
+		if(!tester.getPlayer()){player = 'A';}
+		else player = 'B';
+		System.out.println("\nMake your move " + player);
 		char c = scanner.next().charAt(0);//Get a letter, a - f. Will add guard condition
 		if(c >= 'a' && c <= 'f')
 		{
@@ -29,7 +29,7 @@ public static void main(String[] args)
 			}
 			else tester.move(12-x);
 		}
-		tester.printBoard(test);
+		tester.printBoard();
 }
 	tester.move(3);
 }
