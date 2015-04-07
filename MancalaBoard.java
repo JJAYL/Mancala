@@ -99,13 +99,13 @@ public class MancalaBoard
     	}
        if((mancalaBoard[mancalaPitIndex].getStones()==1)) //you land on an empty spot and it is not a mancala
        {
-    	   if((player)&&(mancalaPitIndex!=PLAYER_A_MANCALA)) //if it is player A and is not his mancala TODO may need to account for player A playing in player B mancala
+    	   if((!player)&&(mancalaPitIndex!=PLAYER_B_MANCALA)) //if it is player A and is not his mancala TODO may need to account for player A playing in player B mancala
     	   {	  
     		   mancalaBoard[PLAYER_A_MANCALA].addStones(mancalaBoard[mancalaPitIndex+6].getStones());//take the opposite +7 to get accross the board if player A. use -7 if player B
     		   mancalaBoard[mancalaPitIndex+6].clearPit();
     	   }
-    	  // else
-    		if((!player)&&(mancalaPitIndex!=PLAYER_A_MANCALA))   
+    	  
+    		if((player)&&(mancalaPitIndex!=PLAYER_A_MANCALA))   
     	   {								  //if(mancalaPitIndex!=PLAYER_B_MANCALA) { 
     		   mancalaBoard[PLAYER_A_MANCALA].addStones(mancalaBoard[mancalaPitIndex-6].getStones());//take the opposite +6 to get accross the board if player A. use -6 if player B
     		   mancalaBoard[mancalaPitIndex-6].clearPit();
