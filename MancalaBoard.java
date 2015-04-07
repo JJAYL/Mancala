@@ -56,67 +56,58 @@ public class MancalaBoard
     	}
     	mancalaBoard[mancalaPitIndex].setStones(0); //removes the stone from the pit you start with 
     	for(int i = stonesInHand; i >0 ;i--)
-    	{ 
-    		
-    		//mancalaBoard[mancalaPitIndex+= 1].addStones(); // if it isnt a mancala well
-    		
+    	{     		
     		if((mancalaPitIndex+1)==14) //makes the manacala board wrap around itself hopefully
     		{
-    			mancalaPitIndex=0;
+    			mancalaPitIndex = -1; //so in the next iteration the mancala+= 1 == 0
     		}
     		
-    		mancalaBoard[mancalaPitIndex+= 1].addStones(); // if it isnt an opponent's mancala well
+    		mancalaBoard[mancalaPitIndex+= 1].addStone(); // if it isnt an opponent's mancala well
     		
-    		if((PLAYER_A_MANCALA==mancalaPitIndex) && (player!=mancalaBoard[PLAYER_A_MANCALA].whichPlayer())) //was player==false
+    		if((PLAYER_A_MANCALA==mancalaPitIndex) && (player!=mancalaBoard[PLAYER_A_MANCALA].whichPlayer())) //skips the opponents mancala
     	   	{   //remove the extra stone added to the enemy players mancala
     		   	mancalaBoard[mancalaPitIndex].setStones(mancalaBoard[mancalaPitIndex].getStones()-1); 
     		   	i++;
     	  	} 
-    	   	if((PLAYER_B_MANCALA==mancalaPitIndex) && (player!=mancalaBoard[PLAYER_B_MANCALA].whichPlayer()))
+    	   	if((PLAYER_B_MANCALA==mancalaPitIndex) && (player!=mancalaBoard[PLAYER_B_MANCALA].whichPlayer())) //skips the opponents mancala
     	   	{   //remove the extra stone added to the enemy players mancala
     		   	mancalaBoard[mancalaPitIndex].setStones(mancalaBoard[mancalaPitIndex].getStones()-1);
     		   	i++;
     	  	}
-    	   	
-
-    	   	          
+ 
     	   	if(i==1) //if it is the last stone
     	   	{
-    	   		if((PLAYER_A_MANCALA == mancalaPitIndex)&&(player==true)) //if the last stone is in the players mancalapit, then he gets to go again
-    	   		{ 	//if you end in your mancala
+    	   		if((PLAYER_A_MANCALA == mancalaPitIndex)&&(player==true)) //go again if you last stone lands in your mancala
+    	   		{ 	
     	   			System.out.println("\n");
     	   			printBoard();
     	   			System.out.print("\n Play again ");
     	   			mancalaPitIndex2 = in.nextInt();
-        		   	//mancalaBoard[mancalaPitIndex].addStones(); //this piece of shit of was causing all the problems why are you here? nobody likes you
         	   		move(mancalaPitIndex2); //play again
-        	   		//player= !player; //nullify the player = !player in the move
+        	   		player= !player; //nullify the player = !player in the move
     	   		}
-    	   		if((PLAYER_B_MANCALA == mancalaPitIndex)&&(player==false))
+    	   		if((PLAYER_B_MANCALA == mancalaPitIndex)&&(player==false)) //go again if you last stone lands in your mancala
     	   		{
     	   			System.out.println("\n");
     	   			printBoard();
     	   			System.out.print("Play again ");
     	   			mancalaPitIndex2 = in.nextInt();
-    	   			//mancalaBoard[mancalaPitIndex].addStones();
     	   			move(mancalaPitIndex2); //play again
-        	   		//player= !player; //nullify the player = !player in the move
-
+        	   		player= !player; //nullify the player = !player in the move
     	   		}
     	   	}
     	}
        if((mancalaBoard[mancalaPitIndex].getStones()==1)) //you land on an empty spot and it is not a mancala
        {
-    	   if((player)&&(mancalaPitIndex!=PLAYER_A_MANCALA)) //if it is player A and is not his mancala
-    	   {						//if(mancalaPitIndex!=PLAYER_A_MANCALA) {		  
+    	   if((player)&&(mancalaPitIndex!=PLAYER_A_MANCALA)) //if it is player A and is not his mancala TODO may need to account for player A playing in player B mancala
+    	   {	  
     		   mancalaBoard[PLAYER_A_MANCALA].addStones(mancalaBoard[mancalaPitIndex+6].getStones());//take the opposite +7 to get accross the board if player A. use -7 if player B
     		   mancalaBoard[mancalaPitIndex+6].clearPit();
-    		   //mancalaBoard[PLAYER_A_MANCALA].addStones();  //for some reason overriding this method doesnt work
     	   }
     	  // else
     		if((!player)&&(mancalaPitIndex!=PLAYER_A_MANCALA))   
     	   {								  //if(mancalaPitIndex!=PLAYER_B_MANCALA) { 
-    		   mancalaBoard[PLAYER_A_MANCALA].addStones(mancalaBoard[mancalaPitIndex-6].getStones());//take the opposite +7 to get accross the board if player A. use -7 if player B
+    		   mancalaBoard[PLAYER_A_MANCALA].addStones(mancalaBoard[mancalaPitIndex-6].getStones());//take the opposite +6 to get accross the board if player A. use -6 if player B
     		   mancalaBoard[mancalaPitIndex-6].clearPit();
     	   }
        }
