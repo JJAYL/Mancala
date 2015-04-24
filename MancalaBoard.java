@@ -1,11 +1,33 @@
 import java.util.*;
+
+import javax.swing.event.*;
 public class MancalaBoard
 {
 	public static final int PLAYER_A_MANCALA = 6;
 	public static final int PLAYER_B_MANCALA = 13;
     private boolean player=true; //true == a, false == b 
     private Pit[] mancalaBoard;
+    private ArrayList<ChangeListener> listeners;
     Scanner in = new Scanner(System.in);
+    /**
+     * constructs the mancala board
+     * @param initialStones stones that the board starts out with
+     */
+    public MancalaBoard(int initialStones)
+    {
+         mancalaBoard = new Pit[14];//set pit 6 and 13 to mancalas
+         for(int i = 0; i < PLAYER_A_MANCALA; i++)
+         {
+             mancalaBoard[i] = new Pit(initialStones, true);
+         }
+         for(int i = PLAYER_A_MANCALA; i < PLAYER_B_MANCALA; i++)
+         {
+             mancalaBoard[i] = new Pit(initialStones, false);
+         }
+         mancalaBoard[PLAYER_A_MANCALA] = new MancalaPit(0, true);
+         mancalaBoard[PLAYER_B_MANCALA] = new MancalaPit(0, false);
+         listeners = new ArrayList<ChangeListener>();
+    }
     /**
      * returns the mancala board
      * @return mancala board 
@@ -41,25 +63,6 @@ public class MancalaBoard
 				return x;
 			}
 			else return 12-x;
-    }
-    
-    /**
-     * constructs the mancala board
-     * @param initialStones stones that the board starts out with
-     */
-    public MancalaBoard(int initialStones)
-    {
-         mancalaBoard = new Pit[14];//set pit 6 and 13 to mancalas
-         for(int i = 0; i < PLAYER_A_MANCALA; i++)
-         {
-             mancalaBoard[i] = new Pit(initialStones, true);
-         }
-         for(int i = PLAYER_A_MANCALA; i < PLAYER_B_MANCALA; i++)
-         {
-             mancalaBoard[i] = new Pit(initialStones, false);
-         }
-         mancalaBoard[PLAYER_A_MANCALA] = new MancalaPit(0, true);
-         mancalaBoard[PLAYER_B_MANCALA] = new MancalaPit(0, false);
     }
     /**
      * prints out the mancala board
@@ -153,21 +156,27 @@ public class MancalaBoard
        }
        //changes the players turn
        player=!player;  //this may be nullified if you play in the mancala
+       for(ChangeListener c: listeners)
+       {
+    	   c.stateChanged(new ChangeEvent(this));
+       }
    }
     
     /**
      * declares the winner
      */
-   public void winnerIs()
+   public String winnerIs() //you need to change this, we're not straight up printing stuff in the final
    {
+	   String winner = "";
 	   if(mancalaBoard[PLAYER_A_MANCALA].getStones()>mancalaBoard[PLAYER_B_MANCALA].getStones())
 	   {
-		   System.out.println("Player A wins");
+		   winner ="Player A wins";
 	   }
 	   else if(mancalaBoard[PLAYER_A_MANCALA].getStones()<mancalaBoard[PLAYER_B_MANCALA].getStones())
 	   {
-		   System.out.println("Player B wins");
+		   winner = "Player B wins";
 	   }
-	   else System.out.println("Tie");
+	   else winner = "Tie";
+	   return winner;
    }
 }
