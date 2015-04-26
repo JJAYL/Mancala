@@ -84,6 +84,7 @@ public class MancalaBoard
      * @param mancalaPitIndex pit address in the board
      */
     //TODO include case where all of A's pits are 0 so he can not move
+    //TODO there was a time wher A's mancala just zeroed out and didnt get any more stones
     public void move(int mancalaPitIndex)
     {
     	int stonesInHand = mancalaBoard[mancalaPitIndex].getStones(); 
