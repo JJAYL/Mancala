@@ -4,73 +4,26 @@ import java.awt.geom.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-/**
- * @author Alan Huynh
- * MancalaView: Draw the Mancala Board and all related buttons
- * Right now, it draws the basic board with rectangles.
- * To do:
- * Implement buttons
- * Add other functionality - the undo button, a way to draw how many stones are in each pit
- * Add mouse listeners so we can make moves
- */
 
-public class MancalaView extends JFrame implements ChangeListener{
-	private MancalaBoard board;
-	/**
-	 * @author Alan Huynh
-	 * Initialize a MancalaView with a given MancalaBoard.
-	 * @param b the MancalaBoard we are using to initialize the view
-	 */
-	public MancalaView(MancalaBoard b)
-	{
-		board = b;
-		setSize(400, 400);
-		setLayout(new BorderLayout());
-		GameBoard gameBoard = new GameBoard(0, 0);
-		add(gameBoard);
-		setTitle("Mancala Game");
-		gameBoard.addMouseListener(new MouseListener()
-		{
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			@Override
-			public void mouseEntered(MouseEvent arg0) {}
-			@Override
-			public void mouseExited(MouseEvent arg0) {}
-			@Override
-			public void mousePressed(MouseEvent arg0) {}
-			@Override
-			public void mouseReleased(MouseEvent arg0) {}
-		});
-	}
-	@Override
-	public void stateChanged(ChangeEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-}
 /**
  * @author Alan Huynh
  * The panel that displays the board.
  */
-class GameBoard extends JPanel 
+public class MancalaView extends JComponent 
 {
 	private int x = 0;
 	private int y = 0;
 	private Rectangle2D.Double[] boardArray;
-
-	private ArrayList<Ellipse2D.Double> balls;;
+	private Point mousePoint;
+	private ArrayList<Ellipse2D.Double> balls;
+	private MancalaBoard board;
 	/**
 	 * @param offsetX how far to the right does it go
 	 * @param offsetY how far down does it go
 	 */
-	public GameBoard(int offsetX, int offsetY)
+	public MancalaView(int offsetX, int offsetY, MancalaBoard b)
 	{
+		board = b;
 		x = offsetX;
 		y = offsetY;
 		double boardWidth = 50;
@@ -84,7 +37,27 @@ class GameBoard extends JPanel
 			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
 		}
 		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
-		
+		addMouseListener(new MouseListener()
+		{
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				mousePoint = arg0.getPoint();
+				for(Rectangle2D.Double d: boardArray)
+				{
+					if(d.contains(mousePoint)){board.move(0);}//todo
+				}
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+		});
 	}
 	public int getX()
 	{
