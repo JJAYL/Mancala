@@ -38,12 +38,13 @@ public class BetterViewThanAllen
         center.setLayout(new GridLayout(2,6));
         for(int i=0;i<12;i++)
 		{
+        	Rock stone = new Rock(0,0,60);
 			wells[i] = new JPanel();
 			wells[i].setLayout(new FlowLayout());
-			wells[i].add(new Rock(10,20,30));
+			wells[i].add(new Rock());
+			wells[i].add(stone);
 			wells[i].add(new JButton(Integer.toString(i)));
 			center.add(wells[i]);
-			//wells[i].setVisible(true);
 			center.setVisible(true);
 		}
         frame.validate();
