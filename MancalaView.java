@@ -1,11 +1,9 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import java.awt.geom.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+import java.awt.event.*;
+import java.util.ArrayList;
 /**
  * @author Alan Huynh
  * MancalaView: Draw the Mancala Board and all related buttons
@@ -40,26 +38,13 @@ public class MancalaView extends JFrame implements ChangeListener{
 				
 			}
 			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseEntered(MouseEvent arg0) {}
 			@Override
-			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseExited(MouseEvent arg0) {}
 			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mousePressed(MouseEvent arg0) {}
 			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void mouseReleased(MouseEvent arg0) {}
 		});
 	}
 	@Override
@@ -77,6 +62,9 @@ class GameBoard extends JPanel
 {
 	private int x = 0;
 	private int y = 0;
+	private Rectangle2D.Double[] boardArray;
+
+	private ArrayList<Ellipse2D.Double> balls;;
 	/**
 	 * @param offsetX how far to the right does it go
 	 * @param offsetY how far down does it go
@@ -85,6 +73,18 @@ class GameBoard extends JPanel
 	{
 		x = offsetX;
 		y = offsetY;
+		double boardWidth = 50;
+		double boardHeight = 50;
+		boardArray = new Rectangle2D.Double[14]; //Our array of represented pits
+		balls = new ArrayList<Ellipse2D.Double>();
+		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
+		for(int i = 1; i < 7; i++)
+		{//The pits are added in order based on the Pit array in the google doc 
+			boardArray[13-i] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
+			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
+		}
+		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
+		
 	}
 	public int getX()
 	{
@@ -98,16 +98,7 @@ class GameBoard extends JPanel
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		double boardWidth = 50;
-		double boardHeight = 50;
-		Rectangle2D.Double[] boardArray = new Rectangle2D.Double[14]; //Our array of represented pits
-		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
-		for(int i = 1; i < 7; i++)
-		{//The pits are added in order based on the Pit array in the google doc 
-			boardArray[13-i] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
-			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
-		}
-		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
+		
 		for(int i = 0; i < boardArray.length; i++)
 		{//Draw all of the pits. Todo: Have them display the stones
 			g2.draw(boardArray[i]);
