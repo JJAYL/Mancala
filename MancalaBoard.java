@@ -161,7 +161,10 @@ public class MancalaBoard
     	   c.stateChanged(new ChangeEvent(this));
        }
    }
-    
+    public void attach(ChangeListener c)
+    {
+    	listeners.add(c);
+    }
     /**
      * declares the winner
      */
