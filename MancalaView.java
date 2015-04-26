@@ -28,6 +28,7 @@ public class MancalaView extends JFrame implements ChangeListener{
 		board = b;
 		setSize(400, 400);
 		setLayout(new BorderLayout());
+		setVisible(true);
 		GameBoard gameBoard = new GameBoard(0, 0);
 		add(gameBoard);
 		setTitle("Mancala Game");
