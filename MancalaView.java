@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.event.*;
-
 import java.awt.geom.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -38,6 +37,27 @@ public class MancalaView extends JComponent implements ChangeListener
 			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
 		}
 		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
+		Pit[] pits = board.getBoard();
+		for(int i = 0; i < 14; i++)
+		{
+			int xCorner = (int) boardArray[i].getX() + 10;
+			int yCorner = (int) boardArray[i].getY() + 10;
+			int stones = pits[i].getStones();
+			for(int j = 0; j < 3; j++)
+			{
+				for(int k = 0; k < 2; k++)
+				{
+					if(stones > 0)
+					{
+						balls.add(new Ellipse2D.Double(xCorner, yCorner, 10, 10));
+						stones--;
+					}
+					xCorner += 10;
+				}
+				xCorner = (int) boardArray[i].getX() + 10;
+				yCorner += 10;
+			}
+		}
 		addMouseListener(new MouseListener()
 		{
 			@Override
@@ -73,10 +93,13 @@ public class MancalaView extends JComponent implements ChangeListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		
 		for(int i = 0; i < boardArray.length; i++)
 		{//Draw all of the pits. Todo: Have them display the stones
 			g2.draw(boardArray[i]);
+		}
+		for(Ellipse2D.Double d: balls)
+		{
+			g2.draw(d);
 		}
 	}
 	@Override
