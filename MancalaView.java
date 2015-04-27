@@ -36,10 +36,10 @@ public class MancalaView extends JPanel implements ChangeListener
 		boardArray = new Rectangle2D.Double[14]; //Our array of represented pits
 		balls = new ArrayList<Ellipse2D.Double>();
 		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
-		for(int i = 1; i < 7; i++)
+		for(int i = 0; i < 6; i++)
 		{//The pits are added in order based on the Pit array in the google doc 
-			boardArray[13-i] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
-			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
+			boardArray[i+7] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
+			boardArray[i] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
 		}
 		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
 		text = new JTextField();
@@ -123,8 +123,6 @@ public class MancalaView extends JPanel implements ChangeListener
 	public void stateChanged(ChangeEvent arg0) {
 		// TODO Auto-generated method stub
 		repaint();
-		char player = 'A';
-		if(!board.getPlayer()){player++;}
 		text.setText(result);
 		balls.clear();
 	}
