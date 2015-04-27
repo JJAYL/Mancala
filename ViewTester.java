@@ -18,6 +18,7 @@ public class ViewTester {
 				frame.setLayout(new BorderLayout());
 				MancalaBoard b = new MancalaBoard(3);
 				MancalaView v = new MancalaView(0, 0, b);
+				b.attach(v);
 				frame.add(v, BorderLayout.CENTER);
 				frame.setSize(400, 400);
 				frame.setTitle("Mancala Game");
@@ -36,6 +37,7 @@ public class ViewTester {
 				frame.setLayout(new BorderLayout());
 				MancalaBoard b = new MancalaBoard(4);
 				MancalaView v = new MancalaView(0, 0, b);
+				b.attach(v);
 				frame.add(v, BorderLayout.CENTER);
 				frame.setSize(400, 400);
 				frame.setTitle("Mancala Game");
