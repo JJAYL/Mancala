@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class MancalaView extends JPanel implements ChangeListener
 {
-	private int x = 0;
-	private int y = 0;
+	private int x;
+	private int y;
 	private Rectangle2D.Double[] boardArray;
 	private Point mousePoint;
 	private ArrayList<Ellipse2D.Double> balls;
@@ -35,13 +35,13 @@ public class MancalaView extends JPanel implements ChangeListener
 		setLayout(new BorderLayout());
 		boardArray = new Rectangle2D.Double[14]; //Our array of represented pits
 		balls = new ArrayList<Ellipse2D.Double>();
-		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
 		for(int i = 1; i < 7; i++)
 		{//The pits are added in order based on the Pit array in the google doc 
-			boardArray[13-i] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
+			boardArray[i+6] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
 			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
 		}
 		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
+		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
 		text = new JTextField();
 		text.setText(result);
 		add(text, BorderLayout.SOUTH);
@@ -50,10 +50,14 @@ public class MancalaView extends JPanel implements ChangeListener
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+<<<<<<< HEAD
 				for(int i=0;i<14;i++)
 				{
 					board.getBoard()[i].reset(); //TODO test this i just put this in for no reason
 				}
+=======
+				//board.undo();
+>>>>>>> e7008309a3a4b3dcddbbf3f663147fc4a003742f
 			}
 		});
 		addMouseListener(new MouseListener()
@@ -65,7 +69,11 @@ public class MancalaView extends JPanel implements ChangeListener
 				for(int i = 0; i < 14; i++)
 				{
 					Rectangle2D.Double d = boardArray[i];
+<<<<<<< HEAD
 					if(d.contains(mousePoint)){board.move(i);}//TODO
+=======
+					if(d.contains(mousePoint)){result = board.move(i);}//todo
+>>>>>>> e7008309a3a4b3dcddbbf3f663147fc4a003742f
 				}
 			}
 			@Override
@@ -126,9 +134,7 @@ public class MancalaView extends JPanel implements ChangeListener
 	public void stateChanged(ChangeEvent arg0) {
 		// TODO Auto-generated method stub
 		repaint();
-		char player = 'A';
-		if(!board.getPlayer()){player++;}
-		text.setText("It is player " + player + "'s turn");
+		text.setText(result);
 		balls.clear();
 	}
 }
