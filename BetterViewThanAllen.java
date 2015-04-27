@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
@@ -31,21 +32,22 @@ public class BetterViewThanAllen
         frame.add(mancalaB, BorderLayout.WEST);
         frame.add(center, BorderLayout.CENTER);
         mancalaA.add(new JButton("A"));
-        mancalaA.add(new Rock(10,20,30));
+        //mancalaA.add(new Rock(10,20,30));
         
         mancalaB.add(new JButton("B"));
-        mancalaB.add(new Rock(10,20,30));
+        //mancalaB.add(new Rock(10,20,30));
         center.setLayout(new GridLayout(2,6));
         for(int i=0;i<12;i++)
 		{
-        	Rock stone = new Rock(0,0,60);
+        	//TODO add rectangles around these mofos
 			wells[i] = new JPanel();
+			wells[i].setBounds(new Rectangle(5,5));
 			wells[i].setLayout(new FlowLayout());
-			wells[i].add(new Rock());
-			wells[i].add(stone);
+			wells[i].add(new Rock(10,20,30));
+			wells[i].add(new Rock(10,20,30));
+			wells[i].add(new Rock(10,20,30));
 			wells[i].add(new JButton(Integer.toString(i)));
 			center.add(wells[i]);
-			center.setVisible(true);
 		}
         frame.validate();
 	}
