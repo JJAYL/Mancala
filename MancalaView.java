@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.event.*;
+
 import java.awt.geom.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,6 +19,7 @@ public class MancalaView extends JPanel implements ChangeListener
 	private ArrayList<Ellipse2D.Double> balls;
 	private MancalaBoard board;
 	private JTextField text;
+    private String result;
 	/**
 	 * @param offsetX how far to the right does it go
 	 * @param offsetY how far down does it go
@@ -27,6 +29,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		board = b;
 		x = offsetX;
 		y = offsetY;
+		result = "It is Player A's turn.";
 		double boardWidth = 50;
 		double boardHeight = 50;
 		setLayout(new BorderLayout());
@@ -40,8 +43,16 @@ public class MancalaView extends JPanel implements ChangeListener
 		}
 		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
 		text = new JTextField();
-		text.setText("It is Player A's turn.");
+		text.setText(result);
 		add(text, BorderLayout.SOUTH);
+		JButton undo = new JButton("Undo");
+		undo.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				//board.
+			}
+		});
 		addMouseListener(new MouseListener()
 		{
 			@Override
@@ -104,9 +115,9 @@ public class MancalaView extends JPanel implements ChangeListener
 		}
 		for(Ellipse2D.Double d: balls)
 		{
-			g2.draw(d);
+			g2.setColor(Color.RED);
+			g2.fill(d);
 		}
-		balls = new ArrayList<Ellipse2D.Double>();
 	}
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
@@ -114,6 +125,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		repaint();
 		char player = 'A';
 		if(!board.getPlayer()){player++;}
-		text.setText("It is player" + player + "'s turn");
+		text.setText("It is player " + player + "'s turn");
+		balls.clear();
 	}
 }
