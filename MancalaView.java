@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class MancalaView extends JPanel implements ChangeListener
 {
-	private int x = 0;
-	private int y = 0;
+	private int x;
+	private int y;
 	private Rectangle2D.Double[] boardArray;
 	private Point mousePoint;
 	private ArrayList<Ellipse2D.Double> balls;
@@ -50,7 +50,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//board.
+				//board.undo();
 			}
 		});
 		addMouseListener(new MouseListener()
@@ -62,7 +62,7 @@ public class MancalaView extends JPanel implements ChangeListener
 				for(int i = 0; i < 14; i++)
 				{
 					Rectangle2D.Double d = boardArray[i];
-					if(d.contains(mousePoint)){board.move(i);}//todo
+					if(d.contains(mousePoint)){result = board.move(i);}//todo
 				}
 			}
 			@Override
@@ -125,7 +125,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		repaint();
 		char player = 'A';
 		if(!board.getPlayer()){player++;}
-		text.setText("It is player " + player + "'s turn");
+		text.setText(result);
 		balls.clear();
 	}
 }
