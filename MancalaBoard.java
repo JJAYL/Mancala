@@ -120,19 +120,26 @@ public class MancalaBoard
     	   	if(i==1) //if it is the last stone
     	   	{
     	   		if((PLAYER_A_MANCALA == mancalaPitIndex)&&(player==true)) //go again if you last stone lands in your mancala
-    	   		{ 	
-    	   			System.out.println("\n");
-    	   			printBoard();
-    	   			char input = in.next().charAt(0);
+    	   		{
+    	   			for(ChangeListener c: listeners)
+    	   	       {
+    	   	    	   c.stateChanged(new ChangeEvent(this));
+    	   	       }
+    	   			
+    	   			//char input = in.next().charAt(0);
     	   			//mancalaPitIndex2 = in.nextInt();
         	   		//move(mancalaPitIndex2); //play again
-        	   		move(inputs(input));
-    	   			player= !player; //nullify the player = !player in the move
+    	   			return "Play again ";
+        	   		//move(inputs(input));
+    	   			//player= !player; //nullify the player = !player in the move
     	   		}
     	   		if((PLAYER_B_MANCALA == mancalaPitIndex)&&(player==false)) //go again if you last stone lands in your mancala
     	   		{
-    	   			//System.out.println("\n");
-    	   			//printBoard();
+    	   			for(ChangeListener c: listeners)
+    	   	       {
+    	   	    	   c.stateChanged(new ChangeEvent(this));
+    	   	       }
+    	   			
     	   			return "Play again ";
     	   			//mancalaPitIndex2 = in.nextInt();
     	   			//move(mancalaPitIndex2); //play again
@@ -154,12 +161,17 @@ public class MancalaBoard
     	   }
        }
        //changes the players turn
-       player=!player;  //this may be nullified if you play in the mancala
+       player=!player;
        for(ChangeListener c: listeners)
        {
     	   c.stateChanged(new ChangeEvent(this));
        }
-	return "";
+       if(player==true)
+       {
+    	   return "Player A";
+       }
+       else
+       return "Player B";
    }
     public void attach(ChangeListener c)
     {
