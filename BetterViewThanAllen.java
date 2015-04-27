@@ -23,7 +23,7 @@ public class BetterViewThanAllen
 
 	public BetterViewThanAllen()
 	{
-		frame = new JFrame("I dont know shit about JPanels");                                    
+		frame = new JFrame("I dont know anything about JPanels");                                    
         frame.getContentPane().setLayout(new BorderLayout());                                          
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);           
         frame.setSize(750,500);        

@@ -87,14 +87,14 @@ public class MancalaBoard
      * @param mancalaPitIndex pit address in the board
      */
     //TODO include case where all of A's pits are 0 so he can not move
-    public void move(int mancalaPitIndex)
+    public String move(int mancalaPitIndex)
     {
     	int stonesInHand = mancalaBoard[mancalaPitIndex].getStones(); 
     	int mancalaPitIndex2=0;
     	if(stonesInHand==0)
     	{
-    		System.out.println("Invalid move, try again");
-    		return; //wont change the boolean value at the end so the player will go again and wont do anything in the for loop
+    		return "Invalid move, try again";
+    		//return; //wont change the boolean value at the end so the player will go again and wont do anything in the for loop
     	}
     	mancalaBoard[mancalaPitIndex].setStones(0); //removes the stone from the pit you start with 
     	for(int i = stonesInHand; i >0 ;i--)
@@ -123,7 +123,6 @@ public class MancalaBoard
     	   		{ 	
     	   			System.out.println("\n");
     	   			printBoard();
-    	   			System.out.print("\n Play again ");
     	   			char input = in.next().charAt(0);
     	   			//mancalaPitIndex2 = in.nextInt();
         	   		//move(mancalaPitIndex2); //play again
@@ -132,12 +131,12 @@ public class MancalaBoard
     	   		}
     	   		if((PLAYER_B_MANCALA == mancalaPitIndex)&&(player==false)) //go again if you last stone lands in your mancala
     	   		{
-    	   			System.out.println("\n");
-    	   			printBoard();
-    	   			System.out.print("Play again ");
-    	   			mancalaPitIndex2 = in.nextInt();
-    	   			move(mancalaPitIndex2); //play again
-        	   		player= !player; //nullify the player = !player in the move(index2)
+    	   			//System.out.println("\n");
+    	   			//printBoard();
+    	   			return "Play again ";
+    	   			//mancalaPitIndex2 = in.nextInt();
+    	   			//move(mancalaPitIndex2); //play again
+        	   		//player= !player; //nullify the player = !player in the move(index2)
     	   		}
     	   	}
     	}
@@ -160,6 +159,7 @@ public class MancalaBoard
        {
     	   c.stateChanged(new ChangeEvent(this));
        }
+	return "";
    }
     public void attach(ChangeListener c)
     {
