@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Alan Huynh
  * The panel that displays the board.
  */
-public class MancalaView extends JComponent implements ChangeListener
+public class MancalaView extends JPanel implements ChangeListener
 {
 	private int x = 0;
 	private int y = 0;
@@ -17,6 +17,7 @@ public class MancalaView extends JComponent implements ChangeListener
 	private Point mousePoint;
 	private ArrayList<Ellipse2D.Double> balls;
 	private MancalaBoard board;
+	private JTextField text;
 	/**
 	 * @param offsetX how far to the right does it go
 	 * @param offsetY how far down does it go
@@ -28,6 +29,7 @@ public class MancalaView extends JComponent implements ChangeListener
 		y = offsetY;
 		double boardWidth = 50;
 		double boardHeight = 50;
+		setLayout(new BorderLayout());
 		boardArray = new Rectangle2D.Double[14]; //Our array of represented pits
 		balls = new ArrayList<Ellipse2D.Double>();
 		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
@@ -37,34 +39,16 @@ public class MancalaView extends JComponent implements ChangeListener
 			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
 		}
 		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
-		Pit[] pits = board.getBoard();
-		for(int i = 0; i < 14; i++)
-		{
-			int xCorner = (int) boardArray[i].getX() + 10;
-			int yCorner = (int) boardArray[i].getY() + 10;
-			int stones = pits[i].getStones();
-			for(int j = 0; j < 3; j++)
-			{
-				for(int k = 0; k < 2; k++)
-				{
-					if(stones > 0)
-					{
-						balls.add(new Ellipse2D.Double(xCorner, yCorner, 10, 10));
-						stones--;
-					}
-					xCorner += 10;
-				}
-				xCorner = (int) boardArray[i].getX() + 10;
-				yCorner += 10;
-			}
-		}
+		text = new JTextField();
+		text.setText("It is Player A's turn.");
+		add(text, BorderLayout.SOUTH);
 		addMouseListener(new MouseListener()
 		{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				mousePoint = arg0.getPoint();
-				for(int i = 0; i < 12; i++)
+				for(int i = 0; i < 14; i++)
 				{
 					Rectangle2D.Double d = boardArray[i];
 					if(d.contains(mousePoint)){board.move(i);}//todo
@@ -97,14 +81,39 @@ public class MancalaView extends JComponent implements ChangeListener
 		{//Draw all of the pits. Todo: Have them display the stones
 			g2.draw(boardArray[i]);
 		}
+		Pit[] pits = board.getBoard();
+		for(int i = 0; i < 14; i++)
+		{
+			int xCorner = (int) boardArray[i].getX() + 10;
+			int yCorner = (int) boardArray[i].getY() + 10;
+			int stones = pits[i].getStones();
+			for(int j = 0; j < 3; j++)
+			{
+				for(int k = 0; k < 2; k++)
+				{
+					if(stones > 0)
+					{
+						balls.add(new Ellipse2D.Double(xCorner, yCorner, 10, 10));
+						stones--;
+					}
+					xCorner += 10;
+				}
+				xCorner = (int) boardArray[i].getX() + 10;
+				yCorner += 10;
+			}
+		}
 		for(Ellipse2D.Double d: balls)
 		{
 			g2.draw(d);
 		}
+		balls = new ArrayList<Ellipse2D.Double>();
 	}
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 		// TODO Auto-generated method stub
 		repaint();
+		char player = 'A';
+		if(!board.getPlayer()){player++;}
+		text.setText("It is player" + player + "'s turn");
 	}
 }
