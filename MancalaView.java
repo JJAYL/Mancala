@@ -50,7 +50,10 @@ public class MancalaView extends JPanel implements ChangeListener
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//board.
+				for(int i=0;i<14;i++)
+				{
+					board.getBoard()[i].reset(); //TODO test this i just put this in for no reason
+				}
 			}
 		});
 		addMouseListener(new MouseListener()

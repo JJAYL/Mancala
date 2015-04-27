@@ -91,7 +91,7 @@ public class MancalaBoard
     {
     	int stonesInHand = mancalaBoard[mancalaPitIndex].getStones(); 
     	int mancalaPitIndex2=0;
-    	if(stonesInHand==0)
+    	if(stonesInHand==0||mancalaPitIndex==PLAYER_A_MANCALA||mancalaPitIndex==PLAYER_B_MANCALA)
     	{
     		return "Invalid move, try again";
     		//return; //wont change the boolean value at the end so the player will go again and wont do anything in the for loop

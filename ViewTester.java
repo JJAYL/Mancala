@@ -6,7 +6,8 @@ import java.awt.event.*;
 public class ViewTester {
 	public static void main(String[] args)
 	{
-		JFrame select = new JFrame();
+		BetterViewThanAllen view = new BetterViewThanAllen();
+		final JFrame select = new JFrame();
 		select.setLayout(new BorderLayout());
 		JButton three = new JButton("3");
 		three.addActionListener(new ActionListener()
@@ -22,7 +23,7 @@ public class ViewTester {
 				frame.add(v, BorderLayout.CENTER);
 				frame.setSize(400, 400);
 				frame.setTitle("Mancala Game");
-				frame.pack();
+				//frame.pack();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 			}
@@ -41,7 +42,7 @@ public class ViewTester {
 				frame.add(v, BorderLayout.CENTER);
 				frame.setSize(400, 400);
 				frame.setTitle("Mancala Game");
-				frame.pack();
+				//frame.pack();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 			}
