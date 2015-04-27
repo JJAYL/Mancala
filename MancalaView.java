@@ -65,7 +65,7 @@ public class MancalaView extends JPanel implements ChangeListener
 				for(int i = 0; i < 14; i++)
 				{
 					Rectangle2D.Double d = boardArray[i];
-					if(d.contains(mousePoint)){board.move(i);}//todo
+					if(d.contains(mousePoint)){board.move(i);}//TODO
 				}
 			}
 			@Override
