@@ -19,7 +19,7 @@ public class BetterViewThanAllen
     protected JPanel mancalaA = new JPanel();
     protected JPanel mancalaB = new JPanel();
     protected JPanel center = new JPanel();
-    protected JPanel[] wells = new JPanel[12];
+    protected JPanel[] wells = new JPanel[13];
 
 	public BetterViewThanAllen()
 	{
@@ -37,18 +37,18 @@ public class BetterViewThanAllen
         mancalaB.add(new JButton("B"));
         //mancalaB.add(new Rock(10,20,30));
         center.setLayout(new GridLayout(2,6));
-        for(int i=0;i<12;i++)
+        for(int i=0;i<13;i++)
 		{
+        	wells[i] = new JPanel();
+    		wells[i].setBounds(new Rectangle(5,5));
+    		wells[i].setLayout(new FlowLayout());
         	//TODO add rectangles around these mofos
-			wells[i] = new JPanel();
-			wells[i].setBounds(new Rectangle(5,5));
-			wells[i].setLayout(new FlowLayout());
-			wells[i].add(new Rock(10,20,30));
-			wells[i].add(new Rock(10,20,30));
-			wells[i].add(new Rock(10,20,30));
-			wells[i].add(new JButton(Integer.toString(i)));
-			center.add(wells[i]);
+        	for(int j=0;j<board.getBoard()[i].getStones();j++)
+        	{
+        		wells[i].add(new Rock(10,20,30));  
+        	}
+        		center.add(wells[i]);
 		}
-        frame.validate();
+        //frame.validate();
 	}
 }
