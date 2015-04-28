@@ -50,14 +50,11 @@ public class MancalaView extends JPanel implements ChangeListener
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-<<<<<<< HEAD
 				for(int i=0;i<14;i++)
 				{
 					board.getBoard()[i].reset(); //TODO test this i just put this in for no reason
 				}
-=======
 				//board.undo();
->>>>>>> e7008309a3a4b3dcddbbf3f663147fc4a003742f
 			}
 		});
 		addMouseListener(new MouseListener()
@@ -69,11 +66,8 @@ public class MancalaView extends JPanel implements ChangeListener
 				for(int i = 0; i < 14; i++)
 				{
 					Rectangle2D.Double d = boardArray[i];
-<<<<<<< HEAD
 					if(d.contains(mousePoint)){board.move(i);}//TODO
-=======
 					if(d.contains(mousePoint)){result = board.move(i);}//todo
->>>>>>> e7008309a3a4b3dcddbbf3f663147fc4a003742f
 				}
 			}
 			@Override
