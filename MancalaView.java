@@ -37,7 +37,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		balls = new ArrayList<Ellipse2D.Double>();
 		for(int i = 1; i < 7; i++)
 		{//The pits are added in order based on the Pit array in the google doc 
-			boardArray[i+6] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
+			boardArray[13-i] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
 			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
 		}
 		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
@@ -50,10 +50,6 @@ public class MancalaView extends JPanel implements ChangeListener
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				for(int i=0;i<14;i++)
-				{
-					board.getBoard()[i].reset(); //TODO test this i just put this in for no reason
-				}
 				//board.undo();
 			}
 		});
@@ -63,11 +59,12 @@ public class MancalaView extends JPanel implements ChangeListener
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				mousePoint = arg0.getPoint();
-				for(int i = 0; i < 14; i++)
+				for(int i = 1; i < 7; i++)
 				{
 					Rectangle2D.Double d = boardArray[i];
-					if(d.contains(mousePoint)){board.move(i);}//TODO
 					if(d.contains(mousePoint)){result = board.move(i);}//todo
+					Rectangle2D.Double d2 = boardArray[13-i];
+					if(d2.contains(mousePoint)){result = board.move(13-i);}//todo
 				}
 			}
 			@Override
