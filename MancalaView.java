@@ -61,8 +61,8 @@ public class MancalaView extends JPanel implements ChangeListener
 				mousePoint = arg0.getPoint();
 				for(int i = 1; i < 7; i++)
 				{
-					Rectangle2D.Double d = boardArray[i];
-					if(d.contains(mousePoint)){result = board.move(i);}//todo
+					Rectangle2D.Double d = boardArray[i-1];
+					if(d.contains(mousePoint)){result = board.move(i-1);}//todo
 					Rectangle2D.Double d2 = boardArray[13-i];
 					if(d2.contains(mousePoint)){result = board.move(13-i);}//todo
 				}
