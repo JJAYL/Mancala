@@ -194,4 +194,17 @@ public class MancalaBoard
 	   else winner = "Tie";
 	   return winner;
    }
+   public String undoBoard()
+   {
+	   for(int i=0; i<mancalaBoard.length;i++)
+	   {
+		   mancalaBoard[i].reset();
+	   }
+	   player= !player;
+	   if(player)
+	   {
+		   return "Player A's turn";
+	   }
+	   return "Player B's turn";
+   }
 }
