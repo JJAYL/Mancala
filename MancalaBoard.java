@@ -198,7 +198,7 @@ public class MancalaBoard
     /**
      * declares the winner
      */
-   public String winnerIs() //you need to change this, we're not straight up printing stuff in the final
+   public void winnerIs() //you need to change this, we're not straight up printing stuff in the final
    {
 	   String winner = "";
 	   if(mancalaBoard[PLAYER_A_MANCALA].getStones()>mancalaBoard[PLAYER_B_MANCALA].getStones())
@@ -210,9 +210,10 @@ public class MancalaBoard
 		   winner = "Player B wins";
 	   }
 	   else winner = "Tie";
-	   return winner;
+	   chatHistory.add(winner);
+	   return;
    }
-   public String undoBoard()
+   public void undoBoard()
    {
 	   for(int i=0; i<mancalaBoard.length;i++)
 	   {
@@ -221,8 +222,10 @@ public class MancalaBoard
 	   player= !player;
 	   if(player)
 	   {
-		   return "Player A's turn";
+		   chatHistory.add("Player A's turn");
+		   return;
 	   }
-	   return "Player B's turn";
+	   chatHistory.add("Player B's turn");
+	   return;
    }
 }
