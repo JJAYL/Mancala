@@ -14,11 +14,12 @@ public class MancalaView extends JPanel implements ChangeListener
 {
 	private int x;
 	private int y;
+	private int count;
 	private Rectangle2D.Double[] boardArray;
 	private Point mousePoint;
 	private ArrayList<Ellipse2D.Double> balls;
 	private MancalaBoard board;
-	private JTextField text;
+	private JTextArea text;
     private String result;
 	/**
 	 * @param offsetX how far to the right does it go
@@ -29,30 +30,37 @@ public class MancalaView extends JPanel implements ChangeListener
 		board = b;
 		x = offsetX;
 		y = offsetY;
+		count = 0;
 		result = "It is Player A's turn.";
-		double boardWidth = 50;
-		double boardHeight = 50;
-		setLayout(new BorderLayout());
+		double boardWidth = 100;
+		double boardHeight = 100;
+		setLayout(null);
 		boardArray = new Rectangle2D.Double[14]; //Our array of represented pits
 		balls = new ArrayList<Ellipse2D.Double>();
 		for(int i = 1; i < 7; i++)
 		{//The pits are added in order based on the Pit array in the google doc 
-			boardArray[13-i] = new Rectangle2D.Double(x+(50*i), y, boardWidth, boardHeight);
-			boardArray[i-1] = new Rectangle2D.Double(x+(50*i), y+50, boardWidth, boardHeight);
+			boardArray[13-i] = new Rectangle2D.Double(x+(boardWidth*i), y, boardWidth, boardHeight);
+			boardArray[i-1] = new Rectangle2D.Double(x+(boardWidth*i), y+boardHeight, boardWidth, boardHeight);
 		}
-		boardArray[6] = new Rectangle2D.Double(x+350, y, boardWidth, 2*boardHeight);
+		boardArray[6] = new Rectangle2D.Double(x+700, y, boardWidth, 2*boardHeight);
 		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
-		text = new JTextField();
+		text = new JTextArea();
 		text.setText(result);
-		add(text, BorderLayout.SOUTH);
+		JScrollPane p = new JScrollPane(text);
+		p.setBounds(100, 200, 500, 100);
+		add(p, BorderLayout.SOUTH);
 		JButton undo = new JButton("Undo");
+		undo.setBounds(0, 200, 100, 100);
 		undo.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//board.undo();
+				if(count<3){
+				board.undoBoard();
+				count++;}
 			}
 		});
+		add(undo);
 		addMouseListener(new MouseListener()
 		{
 			@Override
@@ -62,9 +70,9 @@ public class MancalaView extends JPanel implements ChangeListener
 				for(int i = 1; i < 7; i++)
 				{
 					Rectangle2D.Double d = boardArray[i-1];
-					if(d.contains(mousePoint)){result = board.move(i-1);}//todo
+					if(d.contains(mousePoint)){result = board.move(i-1); count = 0;}//todo
 					Rectangle2D.Double d2 = boardArray[13-i];
-					if(d2.contains(mousePoint)){result = board.move(13-i);}//todo
+					if(d2.contains(mousePoint)){result = board.move(13-i); count = 0;}//todo
 				}
 			}
 			@Override
@@ -92,6 +100,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		Graphics2D g2 = (Graphics2D)g;
 		for(int i = 0; i < boardArray.length; i++)
 		{//Draw all of the pits. Todo: Have them display the stones
+			//g2.setColor(Color.CYAN);
 			g2.draw(boardArray[i]);
 		}
 		Pit[] pits = board.getBoard();
@@ -102,7 +111,7 @@ public class MancalaView extends JPanel implements ChangeListener
 			int stones = pits[i].getStones();
 			for(int j = 0; j < 3; j++)
 			{
-				for(int k = 0; k < 2; k++)
+				for(int k = 0; k < 5; k++)
 				{
 					if(stones > 0)
 					{
