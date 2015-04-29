@@ -8,6 +8,7 @@ public class MancalaBoard
     private boolean player=true; //true == a, false == b 
     private Pit[] mancalaBoard;
     private ArrayList<ChangeListener> listeners;
+    private ArrayList<String> chatHistory;
     Scanner in = new Scanner(System.in);
     /**
      * constructs the mancala board
@@ -15,6 +16,8 @@ public class MancalaBoard
      */
     public MancalaBoard(int initialStones)
     {
+    	chatHistory = new ArrayList<String>();
+    	chatHistory.add("It is Player A's turn.");
          mancalaBoard = new Pit[14];//set pit 6 and 13 to mancalas
          for(int i = 0; i < PLAYER_A_MANCALA; i++)
          {
@@ -87,13 +90,14 @@ public class MancalaBoard
      * @param mancalaPitIndex pit address in the board
      */
     //TODO include case where all of A's pits are 0 so he can not move
-    public String move(int mancalaPitIndex)
+    public void move(int mancalaPitIndex)
     {
     	int stonesInHand = mancalaBoard[mancalaPitIndex].getStones(); 
     	int mancalaPitIndex2=0;
     	if(stonesInHand==0||mancalaPitIndex==PLAYER_A_MANCALA||mancalaPitIndex==PLAYER_B_MANCALA)
     	{
-    		return "Invalid move, try again";
+    		chatHistory.add("Invalid move, try again");
+    		return;
     		//return; //wont change the boolean value at the end so the player will go again and wont do anything in the for loop
     	}
     	mancalaBoard[mancalaPitIndex].setStones(0); //removes the stone from the pit you start with 
@@ -129,7 +133,8 @@ public class MancalaBoard
     	   			//char input = in.next().charAt(0);
     	   			//mancalaPitIndex2 = in.nextInt();
         	   		//move(mancalaPitIndex2); //play again
-    	   			return "Play again ";
+    	   			chatHistory.add("Play again ");
+    	    		return;
         	   		//move(inputs(input));
     	   			//player= !player; //nullify the player = !player in the move
     	   		}
@@ -140,7 +145,8 @@ public class MancalaBoard
     	   	    	   c.stateChanged(new ChangeEvent(this));
     	   	       }
     	   			
-    	   			return "Play again ";
+    	   			chatHistory.add("Play again ");
+    	    		return;
     	   			//mancalaPitIndex2 = in.nextInt();
     	   			//move(mancalaPitIndex2); //play again
         	   		//player= !player; //nullify the player = !player in the move(index2)
@@ -168,14 +174,26 @@ public class MancalaBoard
        }
        if(player==true)
        {
-    	   return "Player A";
+    	   chatHistory.add("Player A");
+   		return;
        }
        else
-       return "Player B";
+       chatHistory.add("Player B");
+		return;
    }
     public void attach(ChangeListener c)
     {
     	listeners.add(c);
+    }
+    public String print()
+    {
+    	String total = "";
+		for(String s: chatHistory)
+		{
+			total += s;
+			total += '\n';
+		}
+		return total;
     }
     /**
      * declares the winner
