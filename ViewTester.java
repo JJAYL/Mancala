@@ -3,13 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ViewTester {
+public class Tester {
 	public static void main(String[] args)
 	{
-		BetterViewThanAllen view = new BetterViewThanAllen();
-		final JFrame select = new JFrame();
-		select.setLayout(new BorderLayout());
+		JFrame select = new JFrame();
+		select.setLayout(null);
 		JButton three = new JButton("3");
+		three.setBounds(0, 300, 200, 100);
 		three.addActionListener(new ActionListener()
 		{
 			 public void actionPerformed(ActionEvent a)
@@ -21,7 +21,7 @@ public class ViewTester {
 				MancalaView v = new MancalaView(0, 0, b);
 				b.attach(v);
 				frame.add(v, BorderLayout.CENTER);
-				frame.setSize(400, 400);
+				frame.setSize(800, 400);
 				frame.setTitle("Mancala Game");
 				//frame.pack();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,6 +29,7 @@ public class ViewTester {
 			}
 		});
 		JButton four = new JButton("4");
+		four.setBounds(200, 300, 200, 100);
 		four.addActionListener(new ActionListener()
 		{
 			 public void actionPerformed(ActionEvent a)
@@ -40,7 +41,7 @@ public class ViewTester {
 				MancalaView v = new MancalaView(0, 0, b);
 				b.attach(v);
 				frame.add(v, BorderLayout.CENTER);
-				frame.setSize(400, 400);
+				frame.setSize(800, 400);
 				frame.setTitle("Mancala Game");
 				//frame.pack();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +50,7 @@ public class ViewTester {
 		});
 		select.add(three, BorderLayout.WEST);
 		select.add(four, BorderLayout.EAST);
-		select.pack();
+		select.setSize(400, 400);
 		select.setVisible(true);
 	}
 }
