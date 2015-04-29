@@ -31,7 +31,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		x = offsetX;
 		y = offsetY;
 		count = 0;
-		result = "It is Player A's turn.";
+		result = "";
 		double boardWidth = 100;
 		double boardHeight = 100;
 		setLayout(null);
@@ -48,16 +48,14 @@ public class MancalaView extends JPanel implements ChangeListener
 		text.setText(result);
 		JScrollPane p = new JScrollPane(text);
 		p.setBounds(100, 200, 500, 100);
-		add(p, BorderLayout.SOUTH);
+		add(p);
 		JButton undo = new JButton("Undo");
 		undo.setBounds(0, 200, 100, 100);
 		undo.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if(count<3){
 				board.undoBoard();
-				count++;}
 			}
 		});
 		add(undo);
@@ -70,9 +68,9 @@ public class MancalaView extends JPanel implements ChangeListener
 				for(int i = 1; i < 7; i++)
 				{
 					Rectangle2D.Double d = boardArray[i-1];
-					if(d.contains(mousePoint)){result = board.move(i-1); count = 0;}//todo
+					if(d.contains(mousePoint)){board.move(i-1); count = 0;}//todo
 					Rectangle2D.Double d2 = boardArray[13-i];
-					if(d2.contains(mousePoint)){result = board.move(13-i); count = 0;}//todo
+					if(d2.contains(mousePoint)){board.move(13-i); count = 0;}//todo
 				}
 			}
 			@Override
@@ -99,7 +97,7 @@ public class MancalaView extends JPanel implements ChangeListener
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		for(int i = 0; i < boardArray.length; i++)
-		{//Draw all of the pits. Todo: Have them display the stones
+		{//Draw all of the pits.
 			//g2.setColor(Color.CYAN);
 			g2.draw(boardArray[i]);
 		}
@@ -133,8 +131,9 @@ public class MancalaView extends JPanel implements ChangeListener
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 		// TODO Auto-generated method stub
-		repaint();
+		result = board.print();
 		text.setText(result);
+		repaint();
 		balls.clear();
 	}
 }
