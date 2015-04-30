@@ -7,7 +7,7 @@ public class Pit
     {
         stones = initialStones;
         whichPlayer = player;
-        previousStones = 0;
+        previousStones = initialStones;
     }
     public void setStones(int stones)
     { 
@@ -28,7 +28,7 @@ public class Pit
         stones++;
     }
     
-    public void addStones(int newStones) //CHANGE THIS NAME
+    public void addStones(int newStones) //CHANGE THIS SHITTY NAME
     {
         previousStones = stones;
         this.stones+=newStones;
