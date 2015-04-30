@@ -223,9 +223,12 @@ public class MancalaBoard
 	   if(player)
 	   {
 		   chatHistory.add("Player A's turn");
-		   return;
 	   }
-	   chatHistory.add("Player B's turn");
+	   else chatHistory.add("Player B's turn");
+	   for(ChangeListener c: listeners)
+	   {
+		   c.stateChanged(new ChangeEvent(this));
+	   }
 	   return;
    }
 }
