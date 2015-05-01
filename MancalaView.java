@@ -21,6 +21,7 @@ public class MancalaView extends JPanel implements ChangeListener
 	private MancalaBoard board;
 	private JTextArea text;
     private String result;
+    private Font f;
 	/**
 	 * @param offsetX how far to the right does it go
 	 * @param offsetY how far down does it go
@@ -46,8 +47,9 @@ public class MancalaView extends JPanel implements ChangeListener
 		boardArray[13] = new Rectangle2D.Double(x, y, boardWidth, 2*boardHeight);
 		text = new JTextArea();
 		text.setText(result);
+		f = new Font("SansSerif", Font.BOLD, 14);
 		JScrollPane p = new JScrollPane(text);
-		p.setBounds(100, 200, 500, 100);
+		p.setBounds(100, 200, 700, 100);
 		add(p);
 		JButton undo = new JButton("Undo");
 		undo.setBounds(0, 200, 100, 100);
@@ -97,18 +99,21 @@ public class MancalaView extends JPanel implements ChangeListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		for(int i = 0; i < boardArray.length; i++)
+		for(int i = 0; i < boardArray.length/2; i++)
 		{//Draw all of the pits.
-			g2.setColor(Color.GREEN);
+			g2.setColor(Color.RED);
 			g2.fill(boardArray[i]);
+			g2.setColor(Color.YELLOW);
+			g2.fill(boardArray[13-i]);
 			g2.setColor(Color.BLACK);
 			g2.draw(boardArray[i]);
+			g2.draw(boardArray[13-i]);
 		}
 		Pit[] pits = board.getBoard();
 		for(int i = 0; i < 14; i++)
 		{
-			int xCorner = (int) boardArray[i].getX() + 10;
-			int yCorner = (int) boardArray[i].getY() + 10;
+			int xCorner = (int) boardArray[i].getX() + 15;
+			int yCorner = (int) boardArray[i].getY() + 15;
 			int stones = pits[i].getStones();
 			for(int j = 0; j < 3; j++)
 			{
@@ -116,20 +121,24 @@ public class MancalaView extends JPanel implements ChangeListener
 				{
 					if(stones > 0)
 					{
-						balls.add(new Ellipse2D.Double(xCorner, yCorner, 10, 10));
+						balls.add(new Ellipse2D.Double(xCorner, yCorner, 15, 15));
 						stones--;
 					}
-					xCorner += 10;
+					xCorner += 15;
 				}
-				xCorner = (int) boardArray[i].getX() + 10;
-				yCorner += 10;
+				xCorner = (int) boardArray[i].getX() + 15;
+				yCorner += 15;
 			}
 		}
 		for(Ellipse2D.Double d: balls)
 		{
-			g2.setColor(Color.RED);
+			g2.setColor(Color.MAGENTA);
 			g2.fill(d);
 		}
+		g2.setColor(Color.BLACK);
+		g2.setFont(f);
+		g2.drawString("Player A is red, Player B is yellow", 0, 320);
+		
 	}
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
