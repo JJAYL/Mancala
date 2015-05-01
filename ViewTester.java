@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class ViewTester {
 	public static void main(String[] args)
 	{
-		final JFrame select = new JFrame();
+		JFrame select = new JFrame();
 		select.setLayout(null);
 		JButton three = new JButton("3");
 		three.setBounds(0, 300, 200, 100);
@@ -38,7 +38,7 @@ public class ViewTester {
 				JFrame frame = new JFrame();
 				frame.setLayout(new BorderLayout());
 				MancalaBoard b = new MancalaBoard(4);
-				MancalaView v = new MancalaView(0, 0, b);
+				AltMancalaView v = new AltMancalaView(0, 0, b);
 				b.attach(v);
 				frame.add(v, BorderLayout.CENTER);
 				frame.setSize(800, 400);
@@ -52,5 +52,6 @@ public class ViewTester {
 		select.add(four, BorderLayout.EAST);
 		select.setSize(400, 400);
 		select.setVisible(true);
+		
 	}
 }
