@@ -8,8 +8,10 @@ public class ViewTester {
 	{
 		JFrame select = new JFrame();
 		select.setLayout(null);
-		JButton three = new JButton("3");
-		three.setBounds(0, 300, 200, 100);
+		JButton three = new JButton("Three stones?");
+		JTextArea text = new JTextArea("Mancala Game\nDeveloped by Joachim, Kory, and Alan");
+		text.setBounds(0, 0, 400, 50);
+		three.setBounds(0, 50, 200, 50);
 		three.addActionListener(new ActionListener()
 		{
 			 public void actionPerformed(ActionEvent a)
@@ -28,8 +30,8 @@ public class ViewTester {
 				frame.setVisible(true);
 			}
 		});
-		JButton four = new JButton("4");
-		four.setBounds(200, 300, 200, 100);
+		JButton four = new JButton(" Or four?");
+		four.setBounds(200, 50, 200, 50);
 		four.addActionListener(new ActionListener()
 		{
 			 public void actionPerformed(ActionEvent a)
@@ -48,9 +50,10 @@ public class ViewTester {
 				frame.setVisible(true);
 			}
 		});
-		select.add(three, BorderLayout.WEST);
-		select.add(four, BorderLayout.EAST);
-		select.setSize(400, 400);
+		select.add(three);
+		select.add(four);
+		select.add(text);
+		select.setSize(400, 150);
 		select.setVisible(true);
 		
 	}
