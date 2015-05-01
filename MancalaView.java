@@ -56,6 +56,7 @@ public class MancalaView extends JPanel implements ChangeListener
 			public void actionPerformed(ActionEvent e)
 			{
 				board.undoBoard();
+				repaint();
 			}
 		});
 		add(undo);
@@ -68,9 +69,9 @@ public class MancalaView extends JPanel implements ChangeListener
 				for(int i = 1; i < 7; i++)
 				{
 					Rectangle2D.Double d = boardArray[i-1];
-					if(d.contains(mousePoint)){board.move(i-1); count = 0;}//todo
+					if(d.contains(mousePoint)){board.move(i-1);}//todo
 					Rectangle2D.Double d2 = boardArray[13-i];
-					if(d2.contains(mousePoint)){board.move(13-i); count = 0;}//todo
+					if(d2.contains(mousePoint)){board.move(13-i);}//todo
 				}
 			}
 			@Override
@@ -98,7 +99,9 @@ public class MancalaView extends JPanel implements ChangeListener
 		Graphics2D g2 = (Graphics2D)g;
 		for(int i = 0; i < boardArray.length; i++)
 		{//Draw all of the pits.
-			//g2.setColor(Color.CYAN);
+			g2.setColor(Color.GREEN);
+			g2.fill(boardArray[i]);
+			g2.setColor(Color.BLACK);
 			g2.draw(boardArray[i]);
 		}
 		Pit[] pits = board.getBoard();
