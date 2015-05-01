@@ -3,10 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Tester {
+public class ViewTester {
 	public static void main(String[] args)
 	{
-		JFrame select = new JFrame();
+		final JFrame select = new JFrame();
 		select.setLayout(null);
 		JButton three = new JButton("3");
 		three.setBounds(0, 300, 200, 100);

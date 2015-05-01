@@ -3,11 +3,13 @@ public class Pit
     private int stones;
     private boolean whichPlayer;//true for A, false for B
     private int previousStones;
+    private boolean playedOn;
     public Pit(int initialStones, boolean player)
     {
         stones = initialStones;
         whichPlayer = player;
         previousStones = initialStones;
+        playedOn=false;
     }
     public void setStones(int stones)
     { 
@@ -39,7 +41,16 @@ public class Pit
     }
     public boolean whichPlayer()
     {
-    return whichPlayer;
+    	return whichPlayer;
     }
+	public boolean isPlayedOn()
+	{
+		return playedOn;
+	}
+	
+	public void setPlayedOn(boolean playedOn)
+	{
+		this.playedOn = playedOn;
+	}
     
 }

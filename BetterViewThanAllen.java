@@ -32,10 +32,17 @@ public class BetterViewThanAllen
         frame.add(mancalaB, BorderLayout.WEST);
         frame.add(center, BorderLayout.CENTER);
         mancalaA.add(new JButton("A"));
-        //mancalaA.add(new Rock(10,20,30));
+        for(int j=0;j<board.getBoard()[6].getStones();j++)
+        {
+        	mancalaA.add(new Rock(10,20,30));;
+        }
         
         mancalaB.add(new JButton("B"));
-        //mancalaB.add(new Rock(10,20,30));
+        for(int j= 0;j<board.getBoard()[13].getStones();j++)
+        {
+        	mancalaB.add(new Rock(10,20,30));
+        }
+        
         center.setLayout(new GridLayout(2,6));
         for(int i=0;i<13;i++)
 		{
@@ -45,10 +52,16 @@ public class BetterViewThanAllen
         	//TODO add rectangles around these mofos
         	for(int j=0;j<board.getBoard()[i].getStones();j++)
         	{
-        		wells[i].add(new Rock(10,20,30));  
+        		wells[i].add(new Rock(10,20,30));
+        		wells[i].add(new Rock(10,20,30));
+
+        		wells[i].add(new Rock(10,20,30));
+
+        		wells[i].add(new Rock(10,20,30));
+
         	}
         		center.add(wells[i]);
 		}
-        //frame.validate();
+        frame.validate();
 	}
 }
