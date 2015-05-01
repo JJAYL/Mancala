@@ -108,12 +108,12 @@ public class MancalaBoard
     	mancalaBoard[mancalaPitIndex].setStones(0); //removes the stone from the pit you start with 
     	for(int i = stonesInHand; i >0 ;i--)
     	{
-    		mancalaBoard[mancalaPitIndex].setPlayedOn(true);
+    		
     		if((mancalaPitIndex+1)==14) //makes the manacala board wrap around itself hopefully
     		{
     			mancalaPitIndex = -1; //so in the next iteration the mancala+= 1 == 0
     		}
-    		
+    		mancalaBoard[mancalaPitIndex].setPlayedOn(true);
     		mancalaBoard[mancalaPitIndex+= 1].addStone(); 
     		
     		if((PLAYER_A_MANCALA==mancalaPitIndex) && (player!=mancalaBoard[PLAYER_A_MANCALA].whichPlayer())) //skips the opponents mancala
