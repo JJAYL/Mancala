@@ -130,9 +130,11 @@ public class MancalaBoard
 			{
 				mancalaPitIndex = -1; // so in the next iteration the mancala+= 1 == 0
 			}
+			
 
 			mancalaBoard[mancalaPitIndex += 1].addStone();
-			mancalaBoard[mancalaPitIndex].setPlayedOn(true);
+			mancalaBoard[mancalaPitIndex-1].setPlayedOn(true);			
+			mancalaBoard[mancalaPitIndex].setPlayedOn(true);			
 
 			if ((PLAYER_A_MANCALA == mancalaPitIndex)
 					&& (player != mancalaBoard[PLAYER_A_MANCALA].whichPlayer())) // skips the opponents mancala
