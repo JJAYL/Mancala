@@ -111,7 +111,7 @@ public class MancalaBoard
 		int stonesInHand = mancalaBoard[mancalaPitIndex].getStones();
 		int mancalaPitIndex2 = 0;
 		if (stonesInHand == 0 || mancalaPitIndex == PLAYER_A_MANCALA
-				|| mancalaPitIndex == PLAYER_B_MANCALA)
+				|| mancalaPitIndex == PLAYER_B_MANCALA||mancalaBoard[mancalaPitIndex].whichPlayer()!=player)
 		{
 			chatHistory.add("Invalid move, try again");
 			return;
@@ -128,12 +128,13 @@ public class MancalaBoard
 
 			if ((mancalaPitIndex + 1) == 14) // makes the manacala board wrap around itself hopefully
 			{
+				mancalaBoard[0].setPlayedOn(true);			
 				mancalaPitIndex = -1; // so in the next iteration the mancala+= 1 == 0
 			}
 			
 
 			mancalaBoard[mancalaPitIndex += 1].addStone();
-			mancalaBoard[mancalaPitIndex-1].setPlayedOn(true);			
+			
 			mancalaBoard[mancalaPitIndex].setPlayedOn(true);			
 
 			if ((PLAYER_A_MANCALA == mancalaPitIndex)
@@ -199,7 +200,7 @@ public class MancalaBoard
 				mancalaBoard[PLAYER_B_MANCALA]
 						.addStones(mancalaBoard[12 - mancalaPitIndex]
 								.getStones());// take the opposite +6 to get accross the board if player A. use -6 if player B
-				mancalaBoard[12 - mancalaPitIndex].clearPit();
+				mancalaBoard[12 - mancalaPitIndex].clearPit();// TODO set these to be playedon ==true
 			}
 		}
 		// changes the players turn

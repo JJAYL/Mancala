@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class ViewTester {
 	public static void main(String[] args)
 	{
-		JFrame select = new JFrame();
+		final JFrame select = new JFrame();
 		select.setLayout(null);
 		JButton three = new JButton("Three stones?");
 		JTextArea text = new JTextArea("Mancala Game\nDeveloped by Joachim, Kory, and Alan");
