@@ -20,6 +20,7 @@ public class AltMancalaView extends JPanel implements ChangeListener
 	private MancalaBoard board;
 	private JTextArea text;
     private String result;
+    private Font f;
 	/**
 	 * @param offsetX how far to the right does it go
 	 * @param offsetY how far down does it go
@@ -30,6 +31,7 @@ public class AltMancalaView extends JPanel implements ChangeListener
 		x = offsetX;
 		y = offsetY;
 		result = "";
+		f = new Font("Helvetica", Font.PLAIN, 14);
 		double boardWidth = 100;
 		double boardHeight = 100;
 		setLayout(null);
@@ -45,7 +47,7 @@ public class AltMancalaView extends JPanel implements ChangeListener
 		text = new JTextArea();
 		text.setText(result);
 		JScrollPane p = new JScrollPane(text);
-		p.setBounds(100, 200, 500, 100);
+		p.setBounds(100, 200, 700, 100);
 		add(p);
 		JButton undo = new JButton("Undo");
 		undo.setBounds(0, 200, 100, 100);
@@ -95,10 +97,15 @@ public class AltMancalaView extends JPanel implements ChangeListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		for(int i = 0; i < boardArray.length; i++)
+		for(int i = 0; i < boardArray.length/2; i++)
 		{//Draw all of the pits.
-			g2.setColor(Color.CYAN);
+			g2.setColor(Color.BLUE);
 			g2.fill(boardArray[i]);
+			g2.setColor(Color.GREEN);
+			g2.fill(boardArray[13-i]);
+			g2.setColor(Color.BLACK);
+			g2.draw(boardArray[i]);
+			g2.draw(boardArray[13-i]);
 		}
 		Pit[] pits = board.getBoard();
 		for(int i = 0; i < 14; i++)
@@ -123,9 +130,12 @@ public class AltMancalaView extends JPanel implements ChangeListener
 		}
 		for(Rectangle2D.Double d: balls)
 		{
-			g2.setColor(Color.BLUE);
+			g2.setColor(Color.CYAN);
 			g2.fill(d);
 		}
+		g2.setColor(Color.BLACK);
+		g2.setFont(f);
+		g2.drawString("Player A is blue, Player B is green", 0, 320);
 	}
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
