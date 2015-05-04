@@ -8,6 +8,7 @@ public class MancalaBoard
 	public static final int PLAYER_B_MANCALA = 13;
 	private boolean player = true; // true == a, false == b
 	private Pit[] mancalaBoard;
+	private int undoLimit = 0;
 	private ArrayList<ChangeListener> listeners;
 	private ArrayList<String> chatHistory;
 	Scanner in = new Scanner(System.in);
@@ -281,22 +282,35 @@ public class MancalaBoard
 
 	public void undoBoard()
 	{
-		for (int i = 0; i < mancalaBoard.length; i++)
+		undoLimit++;
+		if(undoLimit==3) undoLimit=0;
+		if(undoLimit<2)
 		{
-			if (mancalaBoard[i].isPlayedOn() == true)
+			for (int i = 0; i < mancalaBoard.length; i++)
 			{
-				mancalaBoard[i].reset();
+				if (mancalaBoard[i].isPlayedOn() == true)
+				{
+					mancalaBoard[i].reset();
+				}
+			}
+			player = !player;
+			if (player)
+			{
+				chatHistory.add("Player A's turn");
+			} else
+				chatHistory.add("Player B's turn");
+			for (ChangeListener c : listeners)
+			{
+				c.stateChanged(new ChangeEvent(this));
 			}
 		}
-		player = !player;
-		if (player)
+		else
 		{
-			chatHistory.add("Player A's turn");
-		} else
-			chatHistory.add("Player B's turn");
-		for (ChangeListener c : listeners)
-		{
-			c.stateChanged(new ChangeEvent(this));
+			chatHistory.add("Hit undo Limit");
+			for (ChangeListener c : listeners)
+			{
+				c.stateChanged(new ChangeEvent(this));
+			}
 		}
 		return;
 	}
