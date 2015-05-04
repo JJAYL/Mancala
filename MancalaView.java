@@ -14,12 +14,11 @@ public class MancalaView extends JPanel implements ChangeListener
 {
 	private int x;
 	private int y;
-	private int count;
 	private Rectangle2D.Double[] boardArray;
 	private Point mousePoint;
 	private ArrayList<Ellipse2D.Double> balls;
 	private MancalaBoard board;
-	private JTextArea text;
+	private JTextArea text, AMancala, BMancala;
     private String result;
     private Font f;
 	/**
@@ -31,10 +30,15 @@ public class MancalaView extends JPanel implements ChangeListener
 		board = b;
 		x = offsetX;
 		y = offsetY;
-		count = 0;
 		result = "";
 		double boardWidth = 100;
 		double boardHeight = 100;
+		AMancala = new JTextArea();
+		BMancala = new JTextArea();
+		AMancala.setEditable(false);
+		BMancala.setEditable(false);
+		AMancala.setBounds(710, 70, 80, 15);
+		BMancala.setBounds(10, 70, 80,15);
 		setLayout(null);
 		boardArray = new Rectangle2D.Double[14]; //Our array of represented pits
 		balls = new ArrayList<Ellipse2D.Double>();
@@ -51,6 +55,8 @@ public class MancalaView extends JPanel implements ChangeListener
 		JScrollPane p = new JScrollPane(text);
 		p.setBounds(100, 200, 700, 100);
 		add(p);
+		add(AMancala);
+		add(BMancala);
 		JButton undo = new JButton("Undo");
 		undo.setBounds(0, 200, 100, 100);
 		undo.addActionListener(new ActionListener()
@@ -110,6 +116,8 @@ public class MancalaView extends JPanel implements ChangeListener
 			g2.draw(boardArray[13-i]);
 		}
 		Pit[] pits = board.getBoard();
+		AMancala.setText("" + pits[6].getStones());
+		BMancala.setText("" + pits[13].getStones());
 		for(int i = 0; i < 14; i++)
 		{
 			int xCorner = (int) boardArray[i].getX() + 15;
@@ -145,6 +153,8 @@ public class MancalaView extends JPanel implements ChangeListener
 		// TODO Auto-generated method stub
 		result = board.print();
 		text.setText(result);
+		AMancala.repaint();
+		BMancala.repaint();
 		repaint();
 		balls.clear();
 	}
