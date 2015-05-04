@@ -114,6 +114,10 @@ public class MancalaBoard
 				|| mancalaPitIndex == PLAYER_B_MANCALA||mancalaBoard[mancalaPitIndex].whichPlayer()!=player)
 		{
 			chatHistory.add("Invalid move, try again");
+			for (ChangeListener c : listeners)
+			{
+				c.stateChanged(new ChangeEvent(this));
+			}
 			return;
 			// return; //wont change the boolean value at the end so the player will go again and wont do anything in the for loop
 		}
@@ -131,8 +135,10 @@ public class MancalaBoard
 				mancalaBoard[0].setPlayedOn(true);			
 				mancalaPitIndex = -1; // so in the next iteration the mancala+= 1 == 0
 			}
-			
-
+			else
+			{
+				mancalaBoard[mancalaPitIndex].setPlayedOn(true);
+			}
 			mancalaBoard[mancalaPitIndex += 1].addStone();
 			
 			mancalaBoard[mancalaPitIndex].setPlayedOn(true);			
@@ -156,27 +162,28 @@ public class MancalaBoard
 			{
 				if ((PLAYER_A_MANCALA == mancalaPitIndex) && (player == true)) // go again if you last stone lands in your mancala
 				{
-					for (ChangeListener c : listeners)
-					{
-						c.stateChanged(new ChangeEvent(this));
-					}
-
 					// char input = in.next().charAt(0);
 					// mancalaPitIndex2 = in.nextInt();
 					// move(mancalaPitIndex2); //play again
 					chatHistory.add("Play again ");
-					return;
-					// move(inputs(input));
+										// move(inputs(input));
 					// player= !player; //nullify the player = !player in the move
+					for (ChangeListener c : listeners)
+					{
+						c.stateChanged(new ChangeEvent(this));
+					}
+					return;
+
 				}
 				if ((PLAYER_B_MANCALA == mancalaPitIndex) && (player == false)) // go again if you last stone lands in your mancala
 				{
+					chatHistory.add("Play again ");
 					for (ChangeListener c : listeners)
 					{
 						c.stateChanged(new ChangeEvent(this));
 					}
 
-					chatHistory.add("Play again ");
+					
 					return;
 					// mancalaPitIndex2 = in.nextInt();
 					// move(mancalaPitIndex2); //play again
@@ -218,9 +225,17 @@ public class MancalaBoard
 		if (player == true)
 		{
 			chatHistory.add("Player A");
+			for (ChangeListener c : listeners)
+			{
+				c.stateChanged(new ChangeEvent(this));
+			}
 			return;
 		} else
 			chatHistory.add("Player B");
+		for (ChangeListener c : listeners)
+		{
+			c.stateChanged(new ChangeEvent(this));
+		}
 		return;
 	}
 
