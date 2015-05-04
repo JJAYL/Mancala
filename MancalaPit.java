@@ -8,10 +8,10 @@ class MancalaPit extends Pit
        super(initialStones, player);
        stones = 0;
    }
-   public void addStones(int stones)
+   /*public void addStones(int stones)
    {
        this.previousStones = this.stones;
        this.stones += stones;
    }
-   
+   */
 }
