@@ -18,7 +18,7 @@ public class AltMancalaView extends JPanel implements ChangeListener
 	private Point mousePoint;
 	private ArrayList<Rectangle2D.Double> balls;
 	private MancalaBoard board;
-	private JTextArea text;
+	private JTextArea text, AMancala, BMancala;
     private String result;
     private Font f;
 	/**
@@ -46,9 +46,17 @@ public class AltMancalaView extends JPanel implements ChangeListener
 		boardArray[13] = new Ellipse2D.Double(x, y, boardWidth, 2*boardHeight);
 		text = new JTextArea();
 		text.setText(result);
+		AMancala = new JTextArea();
+		BMancala = new JTextArea();
+		AMancala.setEditable(false);
+		BMancala.setEditable(false);
+		AMancala.setBounds(710, 70, 80, 15);
+		BMancala.setBounds(10, 70, 80, 15);
 		JScrollPane p = new JScrollPane(text);
 		p.setBounds(100, 200, 700, 100);
 		add(p);
+		add(AMancala);
+		add(BMancala);
 		JButton undo = new JButton("Undo");
 		undo.setBounds(0, 200, 100, 100);
 		undo.addActionListener(new ActionListener()
@@ -108,6 +116,8 @@ public class AltMancalaView extends JPanel implements ChangeListener
 			g2.draw(boardArray[13-i]);
 		}
 		Pit[] pits = board.getBoard();
+		AMancala.setText(pits[6].getStones()+"");
+		BMancala.setText(pits[13].getStones()+"");
 		for(int i = 0; i < 14; i++)
 		{
 			int xCorner = (int) boardArray[i].getX() + 15;
@@ -141,6 +151,8 @@ public class AltMancalaView extends JPanel implements ChangeListener
 	public void stateChanged(ChangeEvent arg0) {
 		// TODO Auto-generated method stub
 		result = board.print();
+		AMancala.repaint();
+		BMancala.repaint();
 		text.setText(result);
 		repaint();
 		balls.clear();
