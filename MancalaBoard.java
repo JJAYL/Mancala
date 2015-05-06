@@ -1,7 +1,12 @@
 import java.util.*;
 
 import javax.swing.event.*;
-
+/**
+ * 
+ * @author Lerman
+ * @author Le
+ * The playing board
+ */
 public class MancalaBoard
 {
 	public static final int PLAYER_A_MANCALA = 6;

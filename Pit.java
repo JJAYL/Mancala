@@ -1,3 +1,10 @@
+/**
+ * 
+ * @author Lerman
+ * @author Le
+ * @author Huynh
+ * stuff that holds the rocks
+ */
 public class Pit
 {
     private int stones;
