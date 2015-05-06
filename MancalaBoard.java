@@ -49,7 +49,6 @@ public class MancalaBoard
 
 	/**
 	 * returns the current player
-	 * 
 	 * @return player playing
 	 */
 	public boolean getPlayer()
@@ -57,6 +56,11 @@ public class MancalaBoard
 		return player;
 	}
 
+	/**
+	 * takes character inputs and converts them to mancala coordinates for console version of the game
+	 * @param input character input to be converted
+	 * @return mancalaBoard coordinate of a corresponding pit
+	 */
 	public int inputs(char input)
 	{
 		char player = 'B';
@@ -71,7 +75,7 @@ public class MancalaBoard
 		}
 		int x = (int) input;
 		x -= 97;
-		if (getPlayer()) // Should enable gameplay from console. I'll update it after work.
+		if (getPlayer())
 		{
 			return x;
 		} else
@@ -79,7 +83,7 @@ public class MancalaBoard
 	}
 
 	/**
-	 * prints out the mancala board
+	 * prints out the mancala board in the console
 	 */
 	public void printBoard()
 	{
@@ -102,13 +106,11 @@ public class MancalaBoard
 	/**
 	 * picks a pit and plays a move
 	 * 
-	 * @param mancalaPitIndex
-	 *            pit address in the board
+	 * @param mancalaPitIndex pit address in the board
 	 */
 	// TODO include case where all of A's pits are 0 so he can not move
 	public void move(int mancalaPitIndex)
 	{
-		// printBoard(); System.out.print("\n");
 		int stonesInHand = mancalaBoard[mancalaPitIndex].getStones();
 		int mancalaPitIndex2 = 0;
 		if (stonesInHand == 0 || mancalaPitIndex == PLAYER_A_MANCALA
@@ -119,8 +121,7 @@ public class MancalaBoard
 			{
 				c.stateChanged(new ChangeEvent(this));
 			}
-			return;
-			// return; //wont change the boolean value at the end so the player will go again and wont do anything in the for loop
+			return; //wont change the boolean value at the end so the player will go again and wont do anything in the for loop
 		}
 		// makes sure to only undo the very last move
 		for (int i = 0; i < mancalaBoard.length; i++)
@@ -131,7 +132,7 @@ public class MancalaBoard
 		for (int i = stonesInHand; i > 0; i--)
 		{
 
-			if ((mancalaPitIndex + 1) == 14) // makes the manacala board wrap around itself hopefully
+			if ((mancalaPitIndex + 1) == 14) // makes the manacala board wrap around itself
 			{
 				mancalaBoard[0].setPlayedOn(true);			
 				mancalaPitIndex = -1; // so in the next iteration the mancala+= 1 == 0
@@ -145,17 +146,15 @@ public class MancalaBoard
 			mancalaBoard[mancalaPitIndex].setPlayedOn(true);			
 
 			if ((PLAYER_A_MANCALA == mancalaPitIndex)
-					&& (player != mancalaBoard[PLAYER_A_MANCALA].whichPlayer())) // skips the opponents mancala
-			{ // remove the extra stone added to the enemy players mancala
-				mancalaBoard[mancalaPitIndex]
-						.setStones(mancalaBoard[mancalaPitIndex].getStones() - 1);
+					&& (player != mancalaBoard[PLAYER_A_MANCALA].whichPlayer())) // skips the opponents mancala by remove the extra stone added to the enemy players mancala
+			{ 
+				mancalaBoard[mancalaPitIndex].setStones(mancalaBoard[mancalaPitIndex].getStones() - 1);
 				i++;
 			}
 			if ((PLAYER_B_MANCALA == mancalaPitIndex)
-					&& (player != mancalaBoard[PLAYER_B_MANCALA].whichPlayer())) // skips the opponents mancala
-			{ // remove the extra stone added to the enemy players mancala
-				mancalaBoard[mancalaPitIndex]
-						.setStones(mancalaBoard[mancalaPitIndex].getStones() - 1);
+					&& (player != mancalaBoard[PLAYER_B_MANCALA].whichPlayer())) // skips the opponents mancala by remove the extra stone added to the enemy players mancala
+			{ 
+				mancalaBoard[mancalaPitIndex].setStones(mancalaBoard[mancalaPitIndex].getStones() - 1);
 				i++;
 			}
 
@@ -192,7 +191,6 @@ public class MancalaBoard
 				}
 			}
 		}
-		//TODO clear opposite pit method
 		if ((mancalaBoard[mancalaPitIndex].getStones() == 1)) // you land on an empty spot on your side and it is not a mancala
 		{
 			if ((player) && (12 - mancalaPitIndex  != PLAYER_A_MANCALA)
@@ -201,14 +199,15 @@ public class MancalaBoard
 				mancalaBoard[PLAYER_A_MANCALA]
 						.addStones(mancalaBoard[12 - mancalaPitIndex].getStones());
 				mancalaBoard[12 - mancalaPitIndex].clearPit();
+				mancalaBoard[12 - mancalaPitIndex].setPlayedOn(true);
 			}
 			if ((!player) && (12 - mancalaPitIndex != PLAYER_B_MANCALA)
 					&& (mancalaBoard[mancalaPitIndex].whichPlayer() == player))
 			{
-				mancalaBoard[PLAYER_B_MANCALA]
-						.addStones(mancalaBoard[12 - mancalaPitIndex]
-								.getStones());// take the opposite +6 to get accross the board if player A. use -6 if player B
-				mancalaBoard[12 - mancalaPitIndex].clearPit();// TODO set these to be playedon ==true
+				mancalaBoard[PLAYER_B_MANCALA].addStones(mancalaBoard[12 - mancalaPitIndex].getStones());
+				mancalaBoard[PLAYER_B_MANCALA].setPlayedOn(true);	
+				mancalaBoard[12 - mancalaPitIndex].clearPit();
+				mancalaBoard[12 - mancalaPitIndex].setPlayedOn(true);
 			}
 		}
 		// changes the players turn
@@ -261,7 +260,7 @@ public class MancalaBoard
 	/**
 	 * declares the winner
 	 */
-	public void winnerIs() // you need to change this, we're not straight up printing stuff in the final
+	public void winnerIs()
 	{
 		String winner = "";
 		if (mancalaBoard[PLAYER_A_MANCALA].getStones() > mancalaBoard[PLAYER_B_MANCALA]
@@ -279,7 +278,10 @@ public class MancalaBoard
 		chatHistory.add(winner);
 		return;
 	}
-
+	
+	/**
+	 * puts all the mancala pits to their previous state
+	 */
 	public void undoBoard()
 	{
 		undoLimit++;
@@ -315,6 +317,10 @@ public class MancalaBoard
 		return;
 	}
 
+	/**
+	 * checks if the game is over
+	 * @return if the game has ended
+	 */
 	public boolean gameOver()
 	{
 		int sum = 0;
@@ -353,9 +359,5 @@ public class MancalaBoard
 			return true;
 		}
 		return false;
-	}
-	//public void clearoppositePit(int mancalaPitIndex)
-	{
-		
 	}
 }
