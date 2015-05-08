@@ -149,7 +149,6 @@ public class MancalaBoard
 			mancalaBoard[mancalaPitIndex += 1].addStone();
 			
 			mancalaBoard[mancalaPitIndex].setPlayedOn(true);			
-
 			if ((PLAYER_A_MANCALA == mancalaPitIndex)
 					&& (player != mancalaBoard[PLAYER_A_MANCALA].whichPlayer())) // skips the opponents mancala by remove the extra stone added to the enemy players mancala
 			{ 
@@ -165,14 +164,9 @@ public class MancalaBoard
 
 			if (i == 1) // if it is the last stone
 			{
-				if ((PLAYER_A_MANCALA == mancalaPitIndex) && (player == true)) // go again if you last stone lands in your mancala
+				if ((PLAYER_A_MANCALA == mancalaPitIndex) && (player == true) && (!gameOver())) // go again if last stone lands in your mancala
 				{
-					// char input = in.next().charAt(0);
-					// mancalaPitIndex2 = in.nextInt();
-					// move(mancalaPitIndex2); //play again
 					chatHistory.add("Play again ");
-										// move(inputs(input));
-					// player= !player; //nullify the player = !player in the move
 					for (ChangeListener c : listeners)
 					{
 						c.stateChanged(new ChangeEvent(this));
@@ -180,7 +174,7 @@ public class MancalaBoard
 					return;
 
 				}
-				if ((PLAYER_B_MANCALA == mancalaPitIndex) && (player == false)) // go again if you last stone lands in your mancala
+				if ((PLAYER_B_MANCALA == mancalaPitIndex) && (player == false) && (!gameOver())) // go again if you last stone lands in your mancala
 				{
 					chatHistory.add("Play again ");
 					for (ChangeListener c : listeners)
@@ -190,9 +184,6 @@ public class MancalaBoard
 
 					
 					return;
-					// mancalaPitIndex2 = in.nextInt();
-					// move(mancalaPitIndex2); //play again
-					// player= !player; //nullify the player = !player in the move(index2)
 				}
 			}
 		}
@@ -332,16 +323,19 @@ public class MancalaBoard
 		for (int i = 0; i < PLAYER_A_MANCALA; i++)
 		{
 			sum += mancalaBoard[i].getStones();
-
 		}
 		if (sum == 0)
 		{
 			// adds all the stones from the pit of B to his mancala
 			for (int j = 7; j < PLAYER_B_MANCALA; j++)
 			{
-				mancalaBoard[PLAYER_B_MANCALA]
-						.setStones(mancalaBoard[PLAYER_B_MANCALA].getStones()
-								+ mancalaBoard[j].getStones());
+				mancalaBoard[PLAYER_B_MANCALA].addStones(mancalaBoard[j].getStones());
+				mancalaBoard[j].clearPit();
+				for (ChangeListener c : listeners)
+				{
+					c.stateChanged(new ChangeEvent(this));
+				}
+				
 			}
 			winnerIs();
 			return true;
@@ -357,8 +351,12 @@ public class MancalaBoard
 			// adds all the stones from the pit of B to his mancala
 			for (int j = 0; j < PLAYER_A_MANCALA; j++)
 			{
-				mancalaBoard[PLAYER_A_MANCALA]
-						.setStones(mancalaBoard[PLAYER_A_MANCALA].getStones()+ mancalaBoard[j].getStones());
+				mancalaBoard[PLAYER_A_MANCALA].addStones(mancalaBoard[j].getStones());
+				mancalaBoard[j].clearPit();
+				for (ChangeListener c : listeners)
+				{
+					c.stateChanged(new ChangeEvent(this));
+				}
 			}
 			winnerIs();
 			return true;
