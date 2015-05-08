@@ -71,15 +71,15 @@ public class MancalaView extends JPanel implements ChangeListener
 		addMouseListener(new MouseListener()
 		{
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
+			public void mouseClicked(MouseEvent arg0)
+			{
 				mousePoint = arg0.getPoint();
 				for(int i = 1; i < 7; i++)
 				{
 					Rectangle2D.Double d = boardArray[i-1];
-					if(d.contains(mousePoint)){board.move(i-1);}//todo
+					if(d.contains(mousePoint)){board.move(i-1);}
 					Rectangle2D.Double d2 = boardArray[13-i];
-					if(d2.contains(mousePoint)){board.move(13-i);}//todo
+					if(d2.contains(mousePoint)){board.move(13-i);}
 				}
 			}
 			@Override
@@ -149,8 +149,8 @@ public class MancalaView extends JPanel implements ChangeListener
 		
 	}
 	@Override
-	public void stateChanged(ChangeEvent arg0) {
-		// TODO Auto-generated method stub
+	public void stateChanged(ChangeEvent arg0)
+	{
 		result = board.print();
 		text.setText(result);
 		AMancala.repaint();
